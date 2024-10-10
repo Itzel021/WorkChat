@@ -1,0 +1,12 @@
+{
+  "users": {
+    "uid123": {
+      "name": "John Doe",
+      "email": "john@example.com"
+    },
+    "uid456": {
+      "name": "Jane Doe",
+      "email": "jane@example.com"
+    }
+  }
+}
