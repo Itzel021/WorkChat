@@ -1,0 +1,51 @@
+.btn-regresar {
+    background-color: white;
+    color: #a5176b;
+    border-color: #a5176b;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.login-container{
+    box-shadow:0px 10px 12px 0px #634da196;
+    padding: 20px; 
+    border-radius: 8px; 
+    margin-top: 20px;
+    background-color: rgba(231, 217, 18, 0.192);
+}
+
+.image-container {
+    background-image: url('../img/registro.png');
+    background-size: cover; /* Asegura que la imagen cubra todo el contenedor */
+    background-position: center; /* Centra la imagen */
+    width: 100%; /* Ancho del 100% */
+    height: 100vh; /* Altura del 100% de la ventana */
+    color: white; /* Color del texto, si es necesario */
+    display: flex; /* Usa flexbox */
+    align-items: center; /* Centra verticalmente */
+    justify-content: center; /* Centra horizontalmente */
+    text-align: center; /* Alinea el texto al centro */
+    box-shadow: -25px 0 20px rgba(47, 25, 129, 0.432);
+}
+
+.btn-login, .btn-regresar {
+    background-color: white;
+    color: #a5176b;
+    border-color: #a5176b;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.btn-login:hover , .btn-regresar:hover{
+    transform: scale(1.1);
+    color: #a5176b;
+}
+.nav-registro{
+    border-bottom: solid 3px #a5176b;
+}
+.nav-regresar{
+    padding-top: 25px;
+    margin-top: 15px;
+    padding-left: 40px;
+}
+.container-btn-enviar{
+    padding-top: 20px;
+}

@@ -66,7 +66,7 @@
     font-weight: 600;
 }
 .bg-banner{
-    background-color: #472c4383; 
+    background-color: #5a3f7288; 
     padding: 20px; 
     border-radius: 8px; 
     margin-top: 20px;
@@ -88,6 +88,6 @@
 }
 
 .bg-func{
-    background-color: #d2b48ca4;
-    padding: 10px;
+    background-color: #51669e79;
+    padding: 15px;
 }
