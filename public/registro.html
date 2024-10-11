@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Login</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+    <div class="login-container">
+        <h2>Registro</h2>
+        <form id="registroForm">
+            <label for="usernameL">Usuario:</label>
+            <input type="text" id="username" name="username">
+            
+            <label for="emailL">E-mail:</label>
+            <input type="text" id="email" name="email" required>
+
+            <label for="passwordL">Contraseña:</label>
+            <input type="password" id="password" name="password" required>
+
+            <input type="button" id="singUp" name="signup_submit" value="Enviar" />
+        </form>
+        <p>¿Ya tienes una cuenta? <a href="login.html">Inicia sesión aquí</a></p>
+    </div>
+    <script type="module" src="js/registro.js"></script>
+</body>
+</html>
