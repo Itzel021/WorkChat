@@ -8,29 +8,23 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="css/registro.css">
     <link rel="icon" href="img/file.ico">
-    <title>Work Chat</title>
+    <title>Registro</title>
 </head>
-<body>
+
+<body class="bg-registro">
     <div class="container-fluid">
-         <!-- Header -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top nav-registro">
-        <a class="navbar-brand" href="index.html">
-            <img src="img/logo.png" width="180" height="60" alt="Logo">
-        </a>
-        <div class="ml-auto">
-            <a href="login.html" class="btn btn-login btn-outline mr-2">Iniciar Sesión</a>
-        </div>
-    </nav>
-        <div class="row">
-            <div class="col-md-6 d-flex flex-column justify-content-start align-items-center bg-light">
-                <div style="height: 80px;"></div>
-                <nav class="navbar navbar-light w-100 nav-regresar">
-                    <a href="index.html"> 
+        <div class="row ">
+            <div class="col-md-6 d-flex flex-column justify-content-start align-items-center">
+                <nav class="navbar w-100 nav-regresar fixed-top">
+                    <a href="index.html">
                         <i class="fas fa-arrow-left fa-2x btn-regresar"></i>
                     </a>
                 </nav>
-                <div class="col-md-8 login-container">
-                    <h2>Registro</h2>
+                <div class="col-md-8 registro-container bg-light">
+                    <div class="d-flex justify-content-center">
+                        <img src="img/logoWorkChat.jpg" alt="Logo de la app" class="logo">
+                    </div>
+                    <h2 class="text-center mb-4">Registro</h2>
                     <form id="registroForm">
                         <div class="form-group">
                             <label for="username">Usuario:</label>
@@ -45,17 +39,71 @@
                             <input type="password" id="password" name="password" class="form-control" required>
                         </div>
                         <div class="d-flex justify-content-center container-btn-enviar">
-                            <button type="button" id="singUp" name="signup_submit" class="btn btn-primary col-md-6">Enviar</button>
+                            <button type="button" id="singUp" name="signup_submit"
+                                class="btn btn-primary btn-registro">Enviar</button>
                         </div>
-                       
+
                     </form>
                 </div>
             </div>
             <div class="col-md-6 image-container">
-                <!-- Imagen se cargará de fondo -->
             </div>
         </div>
     </div>
-    <script type="module" src="js/registro.js"></script>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+        import { getDatabase, set, ref, } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
+        import { getAuth, createUserWithEmailAndPassword, } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCJFw4Tr8d0-2NLtaUAgU15W2t7zaOJ79g",
+            authDomain: "workchat-c8c72.firebaseapp.com",
+            databaseURL: "https://workchat-c8c72-default-rtdb.firebaseio.com",
+            projectId: "workchat-c8c72",
+            storageBucket: "workchat-c8c72.appspot.com",
+            messagingSenderId: "469035320450",
+            appId: "1:469035320450:web:067dd30ab4c6e19541a09b",
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+        const auth = getAuth();
+
+        singUp.addEventListener("click", (e) => {
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+            var username = document.getElementById("username").value;
+            createUserWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    // Signed up
+                    const user = userCredential.user;
+                    set(ref(database, "users/" + user.uid), {
+                        username: username,
+                        email: email,
+                    })
+                        .then(() => {
+                            alert('Registro exitoso!');
+                            // Redirigir a la página principal
+                            window.location.href = './home.html';
+                        })
+                        .catch((error) => {
+                            alert('Error al guardar el usuario: ' + error.message);
+                        });
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    // ..
+                    alert(errorMessage);
+                });
+        });
+
+    </script>
 </body>
+
 </html>

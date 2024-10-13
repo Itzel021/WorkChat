@@ -1,24 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" href="img/file.ico">
+    <link rel="stylesheet" href="css/login.css">
     <title>Login</title>
-    <link rel="stylesheet" href="estilos.css">
 </head>
+
 <body>
-    <div class="login-container">
-        <h2>Iniciar Sesion</h2>
-        <form id="loginForm">
-            <label for="emailLogin">E-mail:</label>
-            <input type="email" id="emailLogin" name="emailLogin" required>
-
-            <label for="passwordLogin">Contraseña:</label>
-            <input type="password" id="passwordLogin" name="passwordLogin" required>
-
-            <input type="button" id="loginButton" name="login_submit" value="Iniciar Sesión" />
-        </form>
+    <nav class="navbar w-100 h-20 nav-regresar fixed-top">
+        <a href="index.html">
+            <i class="fas fa-arrow-left fa-2x btn-regresar"></i>
+        </a>
+    </nav>
+    <div class="background">
+        <div class="bg-purple">
+        </div>
+        <div class="bg-image"></div>
     </div>
-    <script type="module" src="js/login.js"></script>
+    <div class="login-wrapper">
+        <!-- Formulario de login -->
+        <div class="login-container">
+            <div class="d-flex justify-content-center">
+                <img src="img/logoWorkChat.jpg" alt="Logo de la app" class="logo">
+            </div>
+            <h2 class="text-center mb-4">Iniciar Sesión</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="emailLogin">E-mail:</label>
+                    <input type="email" id="emailLogin" name="emailLogin" class="form-control" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="passwordLogin">Contraseña:</label>
+                    <input type="password" id="passwordLogin" name="passwordLogin" class="form-control" required>
+                </div>
+                <div class="container-btn-enviar">
+                    <button type="button" id="loginButton" name="login_submit"
+                        class="btn-enviar btn btn-primary btn-login">
+                        Iniciar Sesión
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+        import {
+            getDatabase,
+            set,
+            ref,
+            update,
+        } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
+        import {
+            getAuth,
+            signInWithEmailAndPassword,
+        } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCJFw4Tr8d0-2NLtaUAgU15W2t7zaOJ79g",
+            authDomain: "workchat-c8c72.firebaseapp.com",
+            databaseURL: "https://workchat-c8c72-default-rtdb.firebaseio.com",
+            projectId: "workchat-c8c72",
+            storageBucket: "workchat-c8c72.appspot.com",
+            messagingSenderId: "469035320450",
+            appId: "1:469035320450:web:067dd30ab4c6e19541a09b",
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+        const auth = getAuth();
+
+        // Añadir el evento al botón de inicio de sesión
+        loginButton.addEventListener("click", (e) => {
+            var email = document.getElementById("emailLogin").value;
+            var password = document.getElementById("passwordLogin").value;
+
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    // Signed in
+                    const user = userCredential.user;
+                    const dt = new Date();
+                    update(ref(database, "users/" + user.uid), {
+                        last_login: dt,
+                    })
+                        .then(() => {
+                            alert('Acceso correcto!');
+                            // Redirigir a la página principal
+                            window.location.href = './home.html';
+                        })
+                        .catch((error) => {
+                            alert('Error al guardar el usuario: ' + error.message);
+                        });
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    alert(errorMessage);
+                });
+        });
+
+    </script>
 </body>
+
 </html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="icon" href="img/file.ico">
+  <title>Home</title>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+    import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-database.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCJFw4Tr8d0-2NLtaUAgU15W2t7zaOJ79g",
+      authDomain: "workchat-c8c72.firebaseapp.com",
+      databaseURL: "https://workchat-c8c72-default-rtdb.firebaseio.com",
+      projectId: "workchat-c8c72",
+      storageBucket: "workchat-c8c72.appspot.com",
+      messagingSenderId: "469035320450",
+      appId: "1:469035320450:web:067dd30ab4c6e19541a09b"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+    const auth = getAuth();
+
+    function getUserName(userId) {
+      const dbRef = ref(getDatabase());
+      get(child(dbRef, `users/${userId}`)).then((snapshot) => {
+        if (snapshot.exists()) {
+          const username = snapshot.val().username;
+          document.getElementById('welcomeMessage').innerText = `Bienvenido, ${username}!`;
+        } else {
+          console.log("No se encontraron datos del usuario.");
+        }
+      }).catch((error) => {
+        console.error(error);
+      });
+    }
+  </script>
+</head>
+
+<body>
+  <!-- Header -->
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <a class="navbar-brand" href="index.html">
+      <img src="img/logo.png" width="150" height="60" alt="Logo">
+    </a>
+    <div>
+      <h3 id="welcomeMessage"></h3>
+    </div>
+    <div>
+      <button >Cerrar Sesión</button>
+    </div>
+  </nav>
+</body>
+
+</html>

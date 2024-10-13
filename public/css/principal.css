@@ -23,10 +23,7 @@
     color: #a5176b;
     font-size: 1rem;
     font-weight: bold;
-}
-
-.navbar {
-    box-shadow:0px 10px 12px 0px #a5176b;
+    background-color: black;
 }
 
 .row h5 {
@@ -36,8 +33,9 @@
 .btn-login {
     background-color: white;
     color: #a5176b;
-    border-color: #a5176b;
+    box-shadow: inset 1px 1px 8px #a5176b;
     transition: transform 0.3s ease, background-color 0.3s ease;
+    border-color: #a5176b;
 }
 
 .btn-register {
@@ -71,11 +69,8 @@
     border-radius: 8px; 
     margin-top: 20px;
 }
-.bg-container {
-    background-color: #f2d7508f; 
-    padding: 20px; 
-    border-radius: 8px; 
-    margin-top: 20px;
+.bg-subtitle {
+    color: #FB8500;
 }
 
 .img-custom {
@@ -86,8 +81,25 @@
     margin: 1rem auto; 
     border-radius: 8px; 
 }
-
-.bg-func{
-    background-color: #51669e79;
-    padding: 15px;
+.creadores {
+    display: flex;
+    justify-content: center;
+    gap: 20px; 
+    color: #a5176b;
+}
+.creator-link i {
+    margin-right: 2px; 
+}
+.func{
+    border-radius: 8px; 
+    box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.1), 
+                0px 20px 30px rgba(0, 0, 0, 0.1), 
+                0px 30px 45px rgba(0, 0, 0, 0.1); 
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+.func:hover{
+    transform: translateY(-10px); 
+    box-shadow: 0px 20px 30px rgba(0, 0, 0, 0.15), 
+                0px 30px 45px rgba(0, 0, 0, 0.15), 
+                0px 40px 60px rgba(0, 0, 0, 0.15); 
 }

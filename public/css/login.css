@@ -1,30 +1,91 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+.login-container {
+    width: 400px;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    position: relative;
+}
+
+.btn-login {
+    width: 100%;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
+.background {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.bg-purple {
+    background-color: #a5176b;
+    width: 50%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.bg-image {
+    background-image: url('../img/login.jpg');
+    background-size: cover;
+    background-position: center;
+    width: 50%;
+    height: 100%;
+}
+
+.login-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    margin: 0;
+    width: 100%;
+    position: relative;
+    z-index: 10;
 }
 
-.login-container {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
-}
-
-.login-container h2 {
-    text-align: center;
+.logo {
+    max-width: 150px;
     margin-bottom: 20px;
 }
 
-.login-container input {
+.btn-regresar {
+    color: white;
+    margin-top: 0px; 
+}
+
+.nav-regresar {
     width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    height: 50px; 
+    padding-left: 50px;
+    margin-top: 25px; 
+}
+
+.container-btn-enviar {
+    padding-top: 20px;
+}
+
+@media (max-width: 768px) {
+    .bg-purple, .bg-image {
+        display: none;
+    }
+    body {
+        background-color: #a5176b;
+    }
+    .login-container {
+        width: 100%;
+        margin: 0 20px;
+    }
 }
