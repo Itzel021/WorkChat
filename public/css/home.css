@@ -1,0 +1,153 @@
+/* Estilos personalizados para el sidebar */
+.wrapper {
+  display: flex;
+  width: 100%;
+}
+
+#sidebar {
+  min-width: 250px;
+  max-width: 250px;
+  background: #f8f9fa;
+  color: #333;
+  transition: all 0.3s;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+#sidebar .sidebar-header {
+  padding: 20px;
+  background: #ffffff;
+  text-align: center;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.components {
+  padding-top: 10px;
+}
+
+#sidebar .enlace:hover {
+  padding: 15px 20px;
+  list-style: none;
+  background-color: #a5176b; /* Cambia el color de fondo al pasar el mouse */
+}
+
+#sidebar .enlace {
+  padding: 15px 20px;
+  list-style: none;
+}
+
+#sidebar .enlace a {
+  color: #333;
+  text-decoration: none;
+  display: block; /* Cubre todo el área del enlace */
+  padding-left: 15px; /* Agrega margen izquierdo */
+  width: 100%; /* Asegura que cubra todo el ancho del menú */
+  transition: 0.3s;
+}
+
+#sidebar .enlace a i {
+  margin-right: 10px;
+}
+
+#sidebar .enlace:hover a {
+  color: white; /* Cambia el color del enlace al pasar el mouse */
+}
+
+#sidebar .active > a {
+  background-color: #a5176b;
+  color: white;
+}
+
+/* Estilos para el eslogan */
+.sidebar-slogan {
+  background-color: #a5176b;
+  text-align: center;
+  padding: 15px;
+  margin-top: auto;
+}
+
+.sidebar-slogan h4 {
+  color: white;
+  font-size: 16px;
+  margin: 0;
+}
+
+/* Estilos para el contenido principal */
+.content {
+  width: 100%;
+  padding: 20px;
+  background-color: #f8f9fa;
+}
+
+/* Alinear nombre de usuario, notificaciones y botón cerrar sesión horizontalmente */
+.header-horizontal {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+.optiones-header{
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+  align-items: center;
+}
+.user-profile h5 {
+  margin: 0;
+}
+
+.notification {
+  margin-right: 10px; 
+}
+
+.notification i {
+  font-size: 20px;
+  color: #333;
+  cursor: pointer;
+  margin-left: 15px;
+}
+
+.logout-btn a {
+  padding: 5px 15px;
+  background-color: #dc3545;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.logout-btn a:hover {
+  background-color: #c82333;
+  color: white;
+}
+
+/* Estilos adicionales para el espacio de trabajo */
+.workspace-title {
+  text-align: center;
+  padding-top: 30px;
+}
+.card-equip{
+  max-width: 400px;
+}
+.container-cards-equip{
+  margin-top: 20px;
+}
+
+.chat-button {
+  background-color: #4267B2; /* Color de fondo azul similar al de Discord */
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.chat-button:hover {
+  background-color: #385998;
+}
