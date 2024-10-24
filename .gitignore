@@ -67,3 +67,6 @@ node_modules/
 
 # dataconnect generated files
 .dataconnect
+
+# Ignorar archivos de secretos
+public/client_secret_*.json
