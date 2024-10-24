@@ -56,18 +56,21 @@
             <!-- Título del espacio de trabajo -->
             <div class="workspace-title">
                 <h3>Espacio de trabajo</h3>
-                <div class="container container-cards-equip">
-                    <div class="card card-equip">
-                        <div class="card-header">
-                            Equipo Alfa
-                        </div>
+                <div class="container container-cards-equip d-flex justify-content-start flex-wrap">
+                    <div id="btn-nuevo-equipo" class="card card-equip new-team-card" style="cursor: pointer;">
                         <div class="card-body">
-                            <p>Este es el equipo Alfa. Somos un grupo de profesionales dedicados a...</p>
+                            <img src="./img/add.png" alt="agregar-equipo" style="max-width: 80px;">
+                            <h5>Nuevo equipo</h5>
                         </div>
-                        <div class="card-footer text-muted">
+                    </div>
+                    <div class="card card-equip">
+                        <div class="card-body">
+                            <img src="./img/equip.jpg" alt="logo-equipo" class="img-fluid">
+                            <h5>Equipo Work Chat</h5>
+                        </div>
+                        <div class="card-footer text-muted d-flex justify-content-end">
                             <button class="chat-button">
-                                <i class="fa-regular fa-comment"></i>
-                                Chat
+                                <i class="fa-regular fa-comment"></i> Chat
                             </button>
                         </div>
                     </div>
@@ -76,4 +79,5 @@
         </div>
     </div>
 </body>
+
 </html>

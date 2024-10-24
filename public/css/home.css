@@ -129,15 +129,24 @@
   text-align: center;
   padding-top: 30px;
 }
-.card-equip{
-  max-width: 400px;
-}
-.container-cards-equip{
+
+.container-cards-equip {
   margin-top: 20px;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.card-equip {
+  max-width: 400px;
+  max-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .chat-button {
-  background-color: #4267B2; /* Color de fondo azul similar al de Discord */
+  background-color: #4267B2; 
   color: #fff;
   border: none;
   padding: 10px 20px;
@@ -150,4 +159,26 @@
 
 .chat-button:hover {
   background-color: #385998;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.new-team-card {
+  padding: 20px;
+  color: #a5176b;
+  border: 2px solid #a5176b; 
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.new-team-card:hover {
+  transform: scale(1.05); 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+}
+
+.new-team-card:active {
+  transform: scale(1); 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
 }

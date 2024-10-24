@@ -8,18 +8,25 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="icon" href="img/file.ico">
     <link rel="stylesheet" href="css/home.css">
+    <!-- FullCalendar CSS -->
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css' rel='stylesheet' />
     <title>Calendario</title>
+    <style>
+        /* Estilos para el calendario */
+        #calendar {
+            width: 700px;
+            margin: auto;
+        }
+    </style>
 </head>
 
 <body>
     <div class="wrapper vh-100">
         <!-- Sidebar -->
-        <nav id="sidebar">
-            <!-- Logo de la empresa -->
+        <nav id="sidebar" class="vh-100">
             <div class="sidebar-header">
                 <img src="./img/logoWorkChat.jpg" alt="Logo de la empresa" class="img-fluid" style="max-width: 200px;">
             </div>
-            <!-- Menú de navegación -->
             <div class="list-unstyled components">
                 <div class="enlace">
                     <a href="home.html"><i class="fas fa-users"></i> Equipos</a>
@@ -31,7 +38,6 @@
                     <a href="tareas.html"><i class="fas fa-tasks"></i> Tareas</a>
                 </div>
             </div>
-            <!-- Eslogan -->
             <div class="sidebar-slogan">
                 <h4>Todo tu equipo, una sola conversación.</h4>
             </div>
@@ -53,12 +59,119 @@
                 </div>
             </div>
 
-            <!-- Título del espacio de trabajo -->
             <div class="workspace-title">
                 <h3>Calendario</h3>
-               
+                <p>Permite que WorkChat acceda a tu calendario de google.</p>
+                <button id="authorize_button" onclick="handleAuthClick()">Authorize</button>
+                <button id="signout_button" onclick="handleSignoutClick()">Sign Out</button>
             </div>
+            <!-- Calendario -->
+            <div id="calendar"></div>
         </div>
     </div>
+
+    <!-- Cargar FullCalendar JS -->
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js'></script>
+    <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
+    <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
+    
+    <script type="text/javascript">
+        const CLIENT_ID = '469035320450-2vo6vekskhqm88jfp1vv5vs87erh35u8.apps.googleusercontent.com';
+        const API_KEY = 'AIzaSyCJFw4Tr8d0-2NLtaUAgU15W2t7zaOJ79g';
+        const DISCOVERY_DOC = 'https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest';
+        const SCOPES = 'https://www.googleapis.com/auth/calendar';
+
+        let tokenClient;
+        let gapiInited = false;
+        let gisInited = false;
+
+        function gapiLoaded() {
+            gapi.load('client', initializeGapiClient);
+        }
+
+        async function initializeGapiClient() {
+            await gapi.client.init({
+                apiKey: API_KEY,
+                discoveryDocs: [DISCOVERY_DOC],
+            });
+            gapiInited = true;
+            maybeEnableButtons();
+        }
+
+        function gisLoaded() {
+            tokenClient = google.accounts.oauth2.initTokenClient({
+                client_id: CLIENT_ID,
+                scope: SCOPES,
+                callback: loadCalendarEvents, // Cargar eventos del calendario
+            });
+            gisInited = true;
+            maybeEnableButtons();
+        }
+
+        function maybeEnableButtons() {
+            if (gapiInited && gisInited) {
+                document.getElementById('authorize_button').style.visibility = 'visible';
+            }
+        }
+
+        function handleAuthClick() {
+            tokenClient.callback = async (resp) => {
+                if (resp.error !== undefined) {
+                    throw (resp);
+                }
+                document.getElementById('signout_button').style.visibility = 'visible';
+                document.getElementById('authorize_button').innerText = 'Refresh';
+                await loadCalendarEvents();
+            };
+
+            if (gapi.client.getToken() === null) {
+                tokenClient.requestAccessToken({ prompt: 'consent' });
+            } else {
+                tokenClient.requestAccessToken({ prompt: '' });
+            }
+        }
+
+        function handleSignoutClick() {
+            const token = gapi.client.getToken();
+            if (token !== null) {
+                google.accounts.oauth2.revoke(token.access_token);
+                gapi.client.setToken('');
+                document.getElementById('calendar').innerHTML = ''; // Limpiar el calendario
+                document.getElementById('authorize_button').innerText = 'Authorize';
+                document.getElementById('signout_button').style.visibility = 'hidden';
+            }
+        }
+
+        async function loadCalendarEvents() {
+            let response;
+            try {
+                const request = {
+                    'calendarId': 'primary',
+                    'timeMin': (new Date()).toISOString(),
+                    'showDeleted': false,
+                    'singleEvents': true,
+                    'maxResults': 10,
+                    'orderBy': 'startTime',
+                };
+                response = await gapi.client.calendar.events.list(request);
+            } catch (err) {
+                console.error('Error fetching events:', err);
+                return;
+            }
+
+            const events = response.result.items;
+            const calendarEl = document.getElementById('calendar');
+            const calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                events: events.map(event => ({
+                    title: event.summary,
+                    start: event.start.dateTime || event.start.date, // Use date if dateTime is not available
+                })),
+            });
+
+            calendar.render();
+        }
+    </script>
 </body>
+
 </html>
