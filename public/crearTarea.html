@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="icon" href="img/file.ico">
     <link rel="stylesheet" href="css/home.css">
-    <title>Home</title>
+    <title>Tareas</title>
 </head>
 
 <body>
@@ -47,7 +47,7 @@
                     <div class="notification">
                         <i class="fas fa-bell"></i>
                     </div>
-                    <div class="logout-btn"  id="logoutButton">
+                    <div class="logout-btn" id="logoutButton">
                         <a href="#" class="btn btn-danger">Cerrar Sesión</a>
                     </div>
                 </div>
@@ -55,47 +55,46 @@
 
             <!-- Título del espacio de trabajo -->
             <div class="workspace-title">
-                <h3>Espacio de trabajo</h3>
-                <div class="container container-cards-equip d-flex justify-content-start flex-wrap">
-                    <div id="btn-nuevo-equipo" class="card card-equip new-team-card" style="cursor: pointer;">
-                        <div class="card-body">
-                            <img src="./img/add.png" alt="agregar-equipo" style="max-width: 80px;">
-                            <h5>Nuevo equipo</h5>
-                        </div>
+                <div class="container p-3">
+                    <div class="container p-4">
+                        <h3>Crear Nueva Tarea</h3>
                     </div>
-                    <div class="card card-equip">
-                        <div class="card-body" id="equipo" style="cursor: pointer;">
-                            <img src="./img/equip.jpg" alt="logo-equipo" class="img-fluid">
-                            <h5>Equipo Work Chat</h5>
+                    <form>
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label for="nombreTarea" class="form-label">Nombre</label>
+                                <input type="text" class="form-control" id="nombreTarea" placeholder="Nombre tarea">
+                            </div>
+                            <div class="col">
+                                <label for="responsable" class="form-label">Responsable</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="responsable"  placeholder="Añadir responsable">
+                                    <button class="btn btn-outline-secondary" type="button">+</button>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <label for="estado" class="form-label">Estado</label>
+                                <select class="form-select" id="estado">
+                                    <option value="en-curso">En curso</option>
+                                    <option value="completado">Completado</option>
+                                    <option value="pendiente">Pendiente</option>
+                                </select>
+                            </div>
+                            <div class="col">
+                                <label for="fecha" class="form-label">Fecha</label>
+                                <div class="input-group">
+                                    <input type="date" class="form-control" id="fecha">
+                                    <button class="btn btn-outline-secondary"><i class="fa fa-calendar"></i></button>
+                                </div>
+                            </div>
                         </div>
-                        <div class="card-footer text-muted d-flex justify-content-end card-footer-btn">
-                            <button id="btn-add-tarea" class="chat-button">
-                                <i class="fa-solid fa-plus-square"></i> Tarea
-                            </button>
-                            <button id="btn-chat-equip" class="chat-button ms-3">
-                                <i class="fa-regular fa-comment"></i> Chat
-                            </button>
-                        </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-    <script type="module" src="./js/home.js"></script>
-    <script>
-        // Redireccionar al hacer clic en el div "Nuevo equipo"
-        document.getElementById("btn-nuevo-equipo").addEventListener("click", function() {
-            window.location.href = "nuevoEquipo.html"; 
-        });
-        // Redireccionar a las tareas del equipo
-        document.getElementById("equipo").addEventListener("click", function() {
-            window.location.href = "tareasEquipo.html"; 
-        });
-        // Redireccionar a crear tarea
-        document.getElementById("btn-add-tarea").addEventListener("click", function() {
-            window.location.href = "crearTarea.html"; 
-        });
-    </script>
+    </div>
+
 </body>
 
 </html>

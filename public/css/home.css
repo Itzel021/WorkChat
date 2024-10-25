@@ -145,6 +145,11 @@
   justify-content: space-between;
 }
 
+.card-footer-btn{
+  max-width: 450px;
+  max-height: 450px;
+  gap: 20px;
+}
 .chat-button {
   background-color: #4267B2; 
   color: #fff;

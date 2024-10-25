@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="icon" href="img/file.ico">
     <link rel="stylesheet" href="css/home.css">
-    <title>Home</title>
+    <title>Tareas</title>
 </head>
 
 <body>
@@ -47,7 +47,7 @@
                     <div class="notification">
                         <i class="fas fa-bell"></i>
                     </div>
-                    <div class="logout-btn"  id="logoutButton">
+                    <div class="logout-btn" id="logoutButton">
                         <a href="#" class="btn btn-danger">Cerrar Sesión</a>
                     </div>
                 </div>
@@ -55,47 +55,49 @@
 
             <!-- Título del espacio de trabajo -->
             <div class="workspace-title">
-                <h3>Espacio de trabajo</h3>
-                <div class="container container-cards-equip d-flex justify-content-start flex-wrap">
-                    <div id="btn-nuevo-equipo" class="card card-equip new-team-card" style="cursor: pointer;">
-                        <div class="card-body">
-                            <img src="./img/add.png" alt="agregar-equipo" style="max-width: 80px;">
-                            <h5>Nuevo equipo</h5>
+                <div class="container p-4">
+                    <h3>Tablero de Tareas</h3>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header">
+                                Lista de Tareas
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-group">
+                                    <li class="list-group-item">Tarea 1</li>
+                                    <li class="list-group-item">Tarea 2</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                    <div class="card card-equip">
-                        <div class="card-body" id="equipo" style="cursor: pointer;">
-                            <img src="./img/equip.jpg" alt="logo-equipo" class="img-fluid">
-                            <h5>Equipo Work Chat</h5>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header">
+                                En proceso
+                            </div>
+                            <div class="card-body">
+                                <input type="text" class="form-control" placeholder="Tarea">
+                            </div>
                         </div>
-                        <div class="card-footer text-muted d-flex justify-content-end card-footer-btn">
-                            <button id="btn-add-tarea" class="chat-button">
-                                <i class="fa-solid fa-plus-square"></i> Tarea
-                            </button>
-                            <button id="btn-chat-equip" class="chat-button ms-3">
-                                <i class="fa-regular fa-comment"></i> Chat
-                            </button>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header">
+                                Hecho
+                            </div>
+                            <div class="card-body">
+                                <input type="text" class="form-control" placeholder="Tarea">
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <script type="module" src="./js/home.js"></script>
-    <script>
-        // Redireccionar al hacer clic en el div "Nuevo equipo"
-        document.getElementById("btn-nuevo-equipo").addEventListener("click", function() {
-            window.location.href = "nuevoEquipo.html"; 
-        });
-        // Redireccionar a las tareas del equipo
-        document.getElementById("equipo").addEventListener("click", function() {
-            window.location.href = "tareasEquipo.html"; 
-        });
-        // Redireccionar a crear tarea
-        document.getElementById("btn-add-tarea").addEventListener("click", function() {
-            window.location.href = "crearTarea.html"; 
-        });
-    </script>
+    </div>
+
 </body>
 
 </html>

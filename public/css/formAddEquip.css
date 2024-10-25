@@ -1,0 +1,44 @@
+.form-container {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    min-width: 500px;
+    max-width: 600px;
+    text-align: start;
+}
+
+h2 {
+    color: #343a40; /* Tono oscuro */
+}
+
+p {
+    color: #6c757d; /* Tono gris */
+}
+
+.input-group-text {
+    font-weight: bold;
+}
+
+.btn-outline-primary {
+    margin-left: 10px;
+}
+
+.member {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    padding: 8px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    background-color: #e9ecef;
+}
+
+.remove-member {
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+#members{
+    min-width: 450px;
+    margin-bottom: 20px;
+}
