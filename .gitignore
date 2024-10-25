@@ -70,3 +70,4 @@ node_modules/
 
 # Ignorar archivos de secretos
 public/client_secret_*.json
+public/client_secret_469035320450-2vo6vekskhqm88jfp1vv5vs87erh35u8.apps.googleusercontent.com.json
