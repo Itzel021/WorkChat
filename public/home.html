@@ -41,8 +41,8 @@
         <div class="content">
             <div class="header-horizontal">
                 <div class="user-profile">
-                    <h5>¡Bienvenido usuario!</h5>
-                </div>
+                    <h5>¡Bienvenido(a) <span id="nombreUsuario"></span>!</h5>
+                  </div>
                 <div class="optiones-header">
                     <div class="notification">
                         <i class="fas fa-bell"></i>
@@ -63,38 +63,23 @@
                             <h5>Nuevo equipo</h5>
                         </div>
                     </div>
-                    <div class="card card-equip">
-                        <div class="card-body" id="equipo" style="cursor: pointer;">
-                            <img src="./img/equip.jpg" alt="logo-equipo" class="img-fluid">
-                            <h5>Equipo Work Chat</h5>
-                        </div>
-                        <div class="card-footer text-muted d-flex justify-content-end card-footer-btn">
-                            <button id="btn-add-tarea" class="chat-button">
-                                <i class="fa-solid fa-plus-square"></i> Tarea
-                            </button>
-                            <button id="btn-chat-equip" class="chat-button ms-3">
-                                <i class="fa-regular fa-comment"></i> Chat
-                            </button>
-                        </div>
+                    <div id="equiposContainer">
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <script>
+        document.getElementById("nombreUsuario").textContent = sessionStorage.getItem("nombreUsuarioSesion") || "usuario";
+      </script>
     <script type="module" src="./js/home.js"></script>
+    <script type="module" src="./js/logout.js"></script>
     <script>
         // Redireccionar al hacer clic en el div "Nuevo equipo"
         document.getElementById("btn-nuevo-equipo").addEventListener("click", function() {
             window.location.href = "nuevoEquipo.html"; 
         });
-        // Redireccionar a las tareas del equipo
-        document.getElementById("equipo").addEventListener("click", function() {
-            window.location.href = "tareasEquipo.html"; 
-        });
-        // Redireccionar a crear tarea
-        document.getElementById("btn-add-tarea").addEventListener("click", function() {
-            window.location.href = "crearTarea.html"; 
-        });
+
     </script>
 </body>
 

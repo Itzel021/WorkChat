@@ -1,0 +1,79 @@
+  /* Estilos adicionales */
+  body,
+  .wrapper {
+      background-color: #f8f9fa;
+  }
+
+  .content {
+      padding: 30px;
+      flex-grow: 1;
+      background: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .header-horizontal {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+  }
+
+  .header-horizontal .notification i {
+      font-size: 1.5em;
+      color: #495057;
+      cursor: pointer;
+      transition: color 0.3s;
+  }
+
+  .header-horizontal .notification i:hover {
+      color: #007bff;
+  }
+
+  .logout-btn .btn {
+      font-size: 0.9em;
+  }
+
+  .workspace-title h3 {
+      color: #343a40;
+      margin-bottom: 20px;
+      font-weight: 600;
+  }
+
+  .input-group input {
+      border-radius: 0.25rem;
+  }
+
+  .input-group button {
+      border-radius: 0.25rem;
+  }
+
+  .btn-outline-primary:hover {
+      background-color: #007bff;
+      color: white;
+  }
+  .miembro-card {
+      width: 18rem;
+      margin: 10px;
+  }
+
+  .card {
+      padding: 1rem;
+      font-size: 0.9rem;
+  }
+
+  .card-title {
+      font-size: 1.2rem;
+  }
+
+  .card-subtitle {
+      font-size: 1rem;
+  }
+
+  .card-text {
+      font-size: 0.9rem;
+  }
+
+  .card .btn {
+      font-size: 0.8rem;
+      padding: 0.4rem 0.8rem;
+  }

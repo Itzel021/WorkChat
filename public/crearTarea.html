@@ -9,10 +9,23 @@
     <link rel="icon" href="img/file.ico">
     <link rel="stylesheet" href="css/home.css">
     <title>Tareas</title>
+    <style>
+        .form-container {
+            min-width: 600px;
+            background-color: #f8f9fa;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-label {
+            font-weight: bold;
+        }
+    </style>
 </head>
 
 <body>
-    <div class="wrapper vh-100">
+    <div class="wrapper vh-100 d-flex">
         <!-- Sidebar -->
         <nav id="sidebar">
             <!-- Logo de la empresa -->
@@ -41,60 +54,71 @@
         <div class="content">
             <div class="header-horizontal">
                 <div class="user-profile">
-                    <h5>¡Bienvenido usuario!</h5>
+                    <h5>¡Bienvenido(a) <span id="nombreUsuario"></span>!</h5>
                 </div>
                 <div class="optiones-header">
                     <div class="notification">
                         <i class="fas fa-bell"></i>
                     </div>
-                    <div class="logout-btn" id="logoutButton">
+                    <div id="logoutButton" class="logout-btn">
                         <a href="#" class="btn btn-danger">Cerrar Sesión</a>
                     </div>
                 </div>
             </div>
-
-            <!-- Título del espacio de trabajo -->
-            <div class="workspace-title">
-                <div class="container p-3">
-                    <div class="container p-4">
-                        <h3>Crear Nueva Tarea</h3>
-                    </div>
-                    <form>
-                        <div class="row mb-3">
-                            <div class="col">
+            <!-- Formulario de Nueva Tarea -->
+            <div class="workspace-title d-flex justify-content-center">
+                <div class="form-container">
+                    <h2 class="text-center mb-4">Crear Nueva Tarea</h2>
+                    <form id="formAgregarTarea">
+                        <div class="form-row mb-3">
+                            <div class="form-group col-md-6">
                                 <label for="nombreTarea" class="form-label">Nombre</label>
-                                <input type="text" class="form-control" id="nombreTarea" placeholder="Nombre tarea">
+                                <input type="text" class="form-control" id="nombreTarea" placeholder="Nombre tarea" required>
                             </div>
-                            <div class="col">
+                            <div class="form-group col-md-6">
                                 <label for="responsable" class="form-label">Responsable</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" id="responsable"  placeholder="Añadir responsable">
-                                    <button class="btn btn-outline-secondary" type="button">+</button>
+                                    <input type="text" class="form-control" id="responsable" placeholder="Añadir Username" required>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" type="button">+</button>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col">
+                        </div>
+                        <div class="form-row mb-3">
+                            <div class="form-group col-md-12">
+                                <label for="descripcionTarea" class="form-label">Descripción</label>
+                                <textarea class="form-control" id="descripcionTarea" placeholder="Describe la tarea" rows="2" required></textarea>
+                            </div>
+                        </div>
+                        <div class="form-row mb-4">
+                            <div class="form-group col-md-6">
                                 <label for="estado" class="form-label">Estado</label>
-                                <select class="form-select" id="estado">
-                                    <option value="en-curso">En curso</option>
-                                    <option value="completado">Completado</option>
+                                <select class="form-control" id="estado" required>
                                     <option value="pendiente">Pendiente</option>
+                                    <option value="en-curso">En curso</option>
+                                    <option value="hecho">Hecho</option>
                                 </select>
                             </div>
-                            <div class="col">
+                            <div class="form-group col-md-6">
                                 <label for="fecha" class="form-label">Fecha</label>
-                                <div class="input-group">
-                                    <input type="date" class="form-control" id="fecha">
-                                    <button class="btn btn-outline-secondary"><i class="fa fa-calendar"></i></button>
-                                </div>
+                                <input type="date" class="form-control" id="fecha" required>
                             </div>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" id="guardarTarea" class="btn btn-success btn-block">Guardar Tarea</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-    </div>
 
+    <script>
+        document.getElementById("nombreUsuario").textContent = sessionStorage.getItem("nombreUsuarioSesion") || "usuario";
+    </script>
+    <script type="module" src="./js/agregarTarea.js"></script>
+    <script type="module" src="./js/logout.js"></script>
 </body>
 
 </html>
