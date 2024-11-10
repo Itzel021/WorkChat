@@ -53,7 +53,7 @@
                     <div class="notification">
                         <i class="fas fa-bell"></i>
                     </div>
-                    <div class="logout-btn">
+                    <div class="logout-btn" id="logoutButton">
                         <a href="#" class="btn btn-danger">Cerrar Sesión</a>
                     </div>
                 </div>
@@ -61,15 +61,16 @@
 
             <div class="workspace-title">
                 <h3>Calendario</h3>
-                <p>Permite que WorkChat acceda a tu calendario de google.</p>
-                <button id="authorize_button" onclick="handleAuthClick()">Authorize</button>
-                <button id="signout_button" onclick="handleSignoutClick()">Sign Out</button>
+                <p>Permite que WorkChat acceda a tu calendario de Google.</p>
+                <button id="authorize_button" onclick="handleAuthClick()" class="btn btn-primary">Autorizar</button>
+                <button id="signout_button" onclick="handleSignoutClick()" class="btn btn-secondary ml-2">Cerrar sesión calendario</button>
             </div>
             <!-- Calendario -->
             <div id="calendar"></div>
         </div>
     </div>
-
+    
+    <script type="module" src="./js/logout.js"></script>
     <!-- Cargar FullCalendar JS -->
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js'></script>
     <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>

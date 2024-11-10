@@ -15,10 +15,39 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
+// Función para listar miembros en el select de "responsable"
+async function cargarMiembros() {
+  const equipoId = sessionStorage.getItem("equipoIdSeleccionado");
+  if (!equipoId) {
+    alert("No se seleccionó un equipo.");
+    return;
+  }
+
+  const miembrosRef = ref(database, `grupos/${equipoId}/miembros`);
+  const miembrosSnapshot = await get(miembrosRef);
+
+  const selectResponsable = document.getElementById("responsable");
+  selectResponsable.innerHTML = '<option value="">Seleccione un miembro</option>'; // Limpiar opciones previas
+
+  if (miembrosSnapshot.exists()) {
+    const miembros = miembrosSnapshot.val();
+    for (const username in miembros) {
+      const option = document.createElement("option");
+      option.value = username;
+      option.textContent = username;
+      selectResponsable.appendChild(option);
+    }
+  } else {
+    alert("Este equipo no tiene miembros.");
+  }
+}
+
+// Llamada a la función para cargar los miembros al cargar la página
+document.addEventListener("DOMContentLoaded", cargarMiembros);
+
 document.getElementById("guardarTarea").addEventListener("click", async function (event) {
   event.preventDefault();
 
-  // Capturar los datos del formulario
   const nombreTarea = document.getElementById("nombreTarea").value;
   const descripcionTarea = document.getElementById("descripcionTarea").value;
   const responsable = document.getElementById("responsable").value.trim();
@@ -31,59 +60,38 @@ document.getElementById("guardarTarea").addEventListener("click", async function
   }
 
   const equipoId = sessionStorage.getItem("equipoIdSeleccionado");
-  const miembrosRef = ref(database, `grupos/${equipoId}/miembros`);
+  const tareasRef = ref(database, `grupos/${equipoId}/tareas`);
 
   try {
-    const miembrosSnapshot = await get(miembrosRef);
-
-    if (!miembrosSnapshot.exists()) {
-      alert("No se encontraron miembros para el equipo seleccionado.");
-      return;
+    const snapshot = await get(tareasRef);
+    let nuevoIdTarea;
+    if (snapshot.exists()) {
+      const tareas = snapshot.val();
+      const ultimoNumero = Object.keys(tareas)
+        .filter(key => key.startsWith("Tarea"))
+        .map(key => parseInt(key.replace("Tarea", "")))
+        .sort((a, b) => b - a)[0];
+      nuevoIdTarea = `Tarea${ultimoNumero + 1}`;
+    } else {
+      nuevoIdTarea = "Tarea1";
     }
 
-    const miembros = miembrosSnapshot.val();
-
-    if (!miembros.hasOwnProperty(responsable)) {
-      alert("Este usuario no  está en el equipo seleccionado.");
-      return;
-    }
-    
-    const nuevaTarea = { // Estructura de la tarea
+    const nuevaTarea = {
       titulo: nombreTarea,
       descripcion: descripcionTarea,
       responsable: responsable,
       estado: estado,
       fecha_limite: fecha
     };
-    const tareasRef = ref(database, `grupos/${equipoId}/tareas`);
-
-    const snapshot = await get(tareasRef); // Obtener las tareas actuales
-
-    let nuevoIdTarea;
-    if (snapshot.exists()) {
-      const tareas = snapshot.val();
-      const keys = Object.keys(tareas);
-
-      const ultimoNumero = keys       // Buscar el número de la última tarea creada
-        .filter(key => key.startsWith("Tarea"))
-        .map(key => parseInt(key.replace("Tarea", "")))
-        .sort((a, b) => b - a)[0];
-
-      nuevoIdTarea = `Tarea${ultimoNumero + 1}`;
-    } else {
-      nuevoIdTarea = "Tarea1";
-    }
 
     await set(ref(database, `grupos/${equipoId}/tareas/${nuevoIdTarea}`), nuevaTarea);
     alert("Tarea guardada exitosamente.");
 
-    // Limpiar los campos del formulario
     document.getElementById("nombreTarea").value = "";
     document.getElementById("descripcionTarea").value = "";
     document.getElementById("responsable").value = "";
     document.getElementById("estado").value = "pendiente";
     document.getElementById("fecha").value = "";
-
   } catch (error) {
     console.error("Error al guardar la tarea:", error);
     alert("Ocurrió un error al guardar la tarea.");

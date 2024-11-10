@@ -65,7 +65,7 @@ async function mostrarEquipos() {
       if (esLider || esMiembro) {
         const nombreEquipo = equipo.nombre;
         const equipoCard = document.createElement("div");
-        equipoCard.className = "card card-equip mt-3";
+        equipoCard.className = "card card-equip-add mt-3";
         equipoCard.innerHTML = `
           <div class="card-body equipo" style="cursor: pointer;">
               <img src="./img/equip.jpg" alt="logo-equipo" class="img-fluid">

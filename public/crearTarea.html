@@ -73,22 +73,23 @@
                         <div class="form-row mb-3">
                             <div class="form-group col-md-6">
                                 <label for="nombreTarea" class="form-label">Nombre</label>
-                                <input type="text" class="form-control" id="nombreTarea" placeholder="Nombre tarea" required>
+                                <input type="text" class="form-control" id="nombreTarea" placeholder="Nombre tarea"
+                                    required>
                             </div>
+                            <!-- Sección "Responsable" del formulario -->
                             <div class="form-group col-md-6">
                                 <label for="responsable" class="form-label">Responsable</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" id="responsable" placeholder="Añadir Username" required>
-                                    <div class="input-group-append">
-                                        <button class="btn btn-outline-secondary" type="button">+</button>
-                                    </div>
-                                </div>
+                                <select id="responsable" class="form-control" required>
+                                    <!-- Opciones se agregarán dinámicamente -->
+                                </select>
                             </div>
+
                         </div>
                         <div class="form-row mb-3">
                             <div class="form-group col-md-12">
                                 <label for="descripcionTarea" class="form-label">Descripción</label>
-                                <textarea class="form-control" id="descripcionTarea" placeholder="Describe la tarea" rows="2" required></textarea>
+                                <textarea class="form-control" id="descripcionTarea" placeholder="Describe la tarea"
+                                    rows="2" maxlength="100" required></textarea>
                             </div>
                         </div>
                         <div class="form-row mb-4">
@@ -106,7 +107,8 @@
                             </div>
                         </div>
                         <div class="text-center">
-                            <button type="submit" id="guardarTarea" class="btn btn-success btn-block">Guardar Tarea</button>
+                            <button type="submit" id="guardarTarea" class="btn btn-success btn-block">Guardar
+                                Tarea</button>
                         </div>
                     </form>
                 </div>
@@ -119,6 +121,7 @@
     </script>
     <script type="module" src="./js/agregarTarea.js"></script>
     <script type="module" src="./js/logout.js"></script>
+    <script type="module" src="./js/listarColaboradores.js"></script>
 </body>
 
 </html>

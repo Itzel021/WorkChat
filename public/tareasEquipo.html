@@ -58,18 +58,18 @@
                 </div>
                 <div class="row">
                     <div class="col-md-4">
-                        <div class="card">
-                            <div class="card-header">
+                        <div class="card border-danger">
+                            <div class="card-header font-weight-bold" style="color: crimson;">
                                 Pendientes
                             </div>
                             <div class="card-body">
                                 <ul id="pendientes" class="list-group"></ul>
                             </div>
                         </div>
-                    </div> 
+                    </div>
                     <div class="col-md-4">
-                        <div class="card">
-                            <div class="card-header">
+                        <div class="card border-info">
+                            <div class="card-header font-weight-bold" style="color: cornflowerblue;">
                                 En Curso
                             </div>
                             <div class="card-body">
@@ -78,8 +78,8 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="card">
-                            <div class="card-header">
+                        <div class="card border-success">
+                            <div class="card-header font-weight-bold" style="color: forestgreen;">
                                 Hecho
                             </div>
                             <div class="card-body">
@@ -89,13 +89,30 @@
                     </div>
                 </div>
             </div>
-            <div id="detalleTarea">
-                <h4>Detalles de la tarea</h4>
-                <p id="detalleTitulo"></p>
-                <p id="detalleDescripcion"></p>
-                <p id="detalleFecha"></p>
-                <p id="detalleEstado"></p>
-                <p id="detalleResponsable"></p>
+            <div id="detalleTarea" class="card mt-5 col-md-10 justify-content-start">
+                <div class="card-header text-aling-center">
+                    <h4>Detalles de la tarea</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                      <div class="col-6">
+                        <strong>Título:</strong><br>
+                        <p id="detalleTitulo"></p>
+                        <strong>Descripción:</strong><br>
+                        <p id="detalleDescripcion"></p>
+                      </div>
+                      <div class="col-4">
+                        <strong>Fecha de entrega:</strong><br>
+                        <p id="detalleFecha"></p>
+                        <strong>Estado:</strong><br>
+                        <p id="detalleEstado"></p>
+                      </div>
+                      <div class="col-2">
+                        <strong>Responsable:</strong><br>
+                        <p id="detalleResponsable"></p>
+                      </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -106,4 +123,5 @@
     <script type="module" src="./js/mostrarTareasEquipo.js"></script>
     <script type="module" src="./js/logout.js"></script>
 </body>
+
 </html>

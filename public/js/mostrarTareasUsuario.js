@@ -48,12 +48,24 @@ async function mostrarTareasResponsable() {
                 const tareaItem = document.createElement("div");
                 tareaItem.classList.add("list-group-item");
                 tareaItem.innerHTML = `
-                  <h5>${tarea.titulo}</h5>
-                  <p>Descripción: ${tarea.descripcion || "Sin descripción"}</p>
-                  <p>Fecha límite: ${tarea.fecha_limite}</p>
-                  <p>Estado: ${tarea.estado}</p>
-                  <p>Grupo: ${grupo.nombre}</p>
-                `;
+                <div class="card-body d-flex flex-wrap">
+                  <div class="flex-grow-1">
+                    <p class="text-start"><strong>Título:</strong> ${tarea.titulo}</p>
+                  </div>
+                  <div class="flex-grow-1">
+                    <p class="text-start"><strong>Descripción:</strong> ${tarea.descripcion || "Sin descripción"}</p>
+                  </div>
+                  <div class="flex-grow-1">
+                    <p class="text-start"><strong>Fecha de entrega:</strong> ${tarea.fecha_limite}</p>
+                  </div>
+                  <div class="flex-grow-1">
+                    <p class="text-start"><strong>Estado:</strong>  ${tarea.estado}</p>
+                  </div>
+                  <div class="flex-grow-1">
+                    <p class="text-start"><strong>Equipo:</strong>  ${grupo.nombre}</p>
+                  </div>
+                </div>
+              `;
                 tareasContainer.appendChild(tareaItem); // Añadir la tarea al historial
               }
             }

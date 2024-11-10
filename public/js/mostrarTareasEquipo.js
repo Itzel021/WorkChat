@@ -9,7 +9,7 @@ const firebaseConfig = {
     storageBucket: "workchat-c8c72.appspot.com",
     messagingSenderId: "469035320450",
     appId: "1:469035320450:web:067dd30ab4c6e19541a09b",
-};
+  };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -18,41 +18,74 @@ const database = getDatabase(app);
 const equipoId = sessionStorage.getItem("equipoIdSeleccionado");
 const usernameSesion = sessionStorage.getItem("usernameSesion");
 const tareasRef = ref(database, `grupos/${equipoId}/tareas`);
+const grupoRef = ref(database, `grupos/${equipoId}`);
+const usernamesRef = ref(database, "usernames");
 
 document.addEventListener("DOMContentLoaded", async () => {
     try {
-        const snapshot = await get(tareasRef);
-
-        if (snapshot.exists()) {
-            const tareas = snapshot.val();
-
-            const pendientesList = document.querySelector("#pendientes");
-            const enCursoList = document.querySelector("#enCurso");
-            const hechoList = document.querySelector("#hecho");
-
-            for (let tareaId in tareas) {
-                const tarea = tareas[tareaId];
-                const listItem = crearElementoTarea(tareaId, tarea);
-                listItem.addEventListener("click", () => mostrarDetallesTarea(tarea));
-
-                // Insertar la tarea en la lista correspondiente
-                if (tarea.estado === "pendiente") {
-                    pendientesList.appendChild(listItem);
-                } else if (tarea.estado === "en-curso") {
-                    enCursoList.appendChild(listItem);
-                } else if (tarea.estado === "hecho") {
-                    hechoList.appendChild(listItem);
+        // Obtener el UID del líder con el username almacenado en sessionStorage
+        const usernamesSnapshot = await get(usernamesRef);
+        let uidSesion = null;
+        
+        if (usernamesSnapshot.exists()) {
+            const usernames = usernamesSnapshot.val();
+            
+            // Buscar el UID correspondiente al username en sessionStorage
+            for (let uid in usernames) {
+                if (usernames[uid] === usernameSesion) {
+                    uidSesion = uid;
+                    break;
                 }
             }
+        }
+
+        if (!uidSesion) {
+            console.error("No se encontró un UID para el username actual.");
+            return;
+        }
+
+        // Obtener los detalles del grupo y verificar si el UID coincide con el del líder
+        const grupoSnapshot = await get(grupoRef);
+        if (grupoSnapshot.exists()) {
+            const grupo = grupoSnapshot.val();
+            const esLider = grupo.lider === uidSesion; // Comparar el UID obtenido
+
+            console.log(`Es líder: ${esLider}`); // Confirmar si es líder
+
+            // Cargar las tareas del grupo
+            const tareasSnapshot = await get(tareasRef);
+            if (tareasSnapshot.exists()) {
+                const tareas = tareasSnapshot.val();
+
+                const pendientesList = document.querySelector("#pendientes");
+                const enCursoList = document.querySelector("#enCurso");
+                const hechoList = document.querySelector("#hecho");
+
+                for (let tareaId in tareas) {
+                    const tarea = tareas[tareaId];
+                    const listItem = crearElementoTarea(tareaId, tarea, esLider);
+                    listItem.addEventListener("click", () => mostrarDetallesTarea(tarea));
+
+                    if (tarea.estado === "pendiente") {
+                        pendientesList.appendChild(listItem);
+                    } else if (tarea.estado === "en-curso") {
+                        enCursoList.appendChild(listItem);
+                    } else if (tarea.estado === "hecho") {
+                        hechoList.appendChild(listItem);
+                    }
+                }
+            } else {
+                console.log("No hay tareas para este equipo.");
+            }
         } else {
-            console.log("No hay tareas para este equipo.");
+            console.log("No se encontró el grupo.");
         }
     } catch (error) {
-        console.error("Error al cargar las tareas:", error);
+        console.error("Error al cargar los datos:", error);
     }
 });
 
-function crearElementoTarea(tareaId, tarea) {
+function crearElementoTarea(tareaId, tarea, esLider) {
     const listItem = document.createElement("li");
     listItem.classList.add("list-group-item");
     listItem.innerHTML = `${tarea.titulo} `;
@@ -81,9 +114,33 @@ function crearElementoTarea(tareaId, tarea) {
         listItem.appendChild(button);
     }
 
+    // Si el usuario es líder, agregar botón de eliminar
+    if (esLider) {
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "Eliminar";
+        deleteButton.classList.add("btn", "btn-sm", "btn-danger", "ms-2");
+
+        deleteButton.addEventListener("click", async () => {
+            await eliminarTarea(tareaId, listItem);
+        });
+
+        listItem.appendChild(deleteButton);
+    }
+
     return listItem;
 }
 
+async function eliminarTarea(tareaId, listItem) {
+    const tareaRef = ref(database, `grupos/${equipoId}/tareas/${tareaId}`);
+    try {
+        await set(tareaRef, null); // Elimina la tarea de Firebase
+        listItem.remove(); // Elimina el elemento de la interfaz
+    } catch (error) {
+        console.error("Error al eliminar la tarea:", error);
+    }
+}
+
+// Función para actualizar el estado de una tarea
 async function actualizarEstadoTarea(tareaId, nuevoEstado, listItem, titulo) {
     const tareaRef = ref(database, `grupos/${equipoId}/tareas/${tareaId}/estado`);
     await set(tareaRef, nuevoEstado);
@@ -93,7 +150,6 @@ async function actualizarEstadoTarea(tareaId, nuevoEstado, listItem, titulo) {
     const enCursoList = document.querySelector("#enCurso");
     const hechoList = document.querySelector("#hecho");
 
-    // Actualizar el contenido y mover el elemento de lista
     listItem.innerHTML = `${titulo} `;
 
     if (nuevoEstado === "hecho") {
@@ -104,7 +160,6 @@ async function actualizarEstadoTarea(tareaId, nuevoEstado, listItem, titulo) {
         }
         hechoList.appendChild(listItem);
     } else if (nuevoEstado === "en-curso") {
-        // Si la tarea está en "en-curso", mostramos el botón "Finalizar"
         const button = document.createElement("button");
         button.textContent = "Finalizar";
         button.classList.add("btn", "btn-sm", "btn-danger");
@@ -121,11 +176,11 @@ async function actualizarEstadoTarea(tareaId, nuevoEstado, listItem, titulo) {
 function mostrarDetallesTarea(tarea) {
     const detalleDiv = document.getElementById("detalleTarea");
 
-    document.getElementById("detalleTitulo").textContent = `Título: ${tarea.titulo}`;
-    document.getElementById("detalleDescripcion").textContent = `Descripción: ${tarea.descripcion || "No hay descripción disponible"}`;
-    document.getElementById("detalleFecha").textContent = `Fecha de Entrega: ${tarea.fecha_limite}`;
-    document.getElementById("detalleEstado").textContent = `Estado: ${tarea.estado}`;
-    document.getElementById("detalleResponsable").textContent = `Responsable: ${tarea.responsable}`;
+    document.getElementById("detalleTitulo").textContent = `${tarea.titulo}`;
+    document.getElementById("detalleDescripcion").textContent = `${tarea.descripcion || "No hay descripción disponible"}`;
+    document.getElementById("detalleFecha").textContent = ` ${tarea.fecha_limite}`;
+    document.getElementById("detalleEstado").textContent = ` ${tarea.estado}`;
+    document.getElementById("detalleResponsable").textContent = `${tarea.responsable}`;
 
     detalleDiv.style.display = "block"; // Mostrar los detalles
 }

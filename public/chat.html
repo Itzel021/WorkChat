@@ -49,15 +49,23 @@
                     <a href="#" class="btn btn-danger btn-sm" id="logoutButton">Cerrar Sesión</a>
                 </div>
             </div>
-
-            <!-- Chat Section -->
-            <div id="chat">
-                <div id="mensajes">
-                    <!-- Messages will appear here -->
+            <div class="container d-flex">
+                <!-- Chat Section -->
+                <div id="chat" class="col-md-9">
+                    <div id="mensajes">
+                        <!-- Messages will appear here -->
+                    </div>
+                    <div class="input-area">
+                        <input type="text" id="mensajeInput" placeholder="Escribe tu mensaje...">
+                        <button id="enviarBtn">Enviar</button>
+                    </div>
                 </div>
-                <div class="input-area">
-                    <input type="text" id="mensajeInput" placeholder="Escribe tu mensaje...">
-                    <button id="enviarBtn">Enviar</button>
+                <!-- User List Section -->
+                <div id="user-list" class="border-left pl-3 col-md-3">
+                    <i class="fa-solid fa-user-group"></i><h5>Colaboradores</h5>
+                    <ul id="listaMiembros" class="list-unstyled">
+                        <!-- Usernames and last connection will be listed here -->
+                    </ul>
                 </div>
             </div>
         </div>

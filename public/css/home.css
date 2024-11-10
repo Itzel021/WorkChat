@@ -136,10 +136,17 @@
   gap: 20px;
   flex-wrap: wrap;
 }
+.card-equip-add{
+  width: 400px;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 
 .card-equip {
-  max-width: 400px;
-  max-height: 400px;
+  width: 200px;
+  height: 200px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
